@@ -1,17 +1,10 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown'
 import gfm from "remark-gfm";
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import 'github-markdown-css'
 
 const App = () => {
   const [textAreaValue, setTextAreaValue] = useState<string>('');
-
-  const components = {
-    code: (props: any) => {
-      return (<SyntaxHighlighter style={dracula} PreTag="div" children={String(props.children).replace(/\n$/, '')} {...props} />)
-    }
-  }
 
   return (
     <div style={{ display: 'flex' }}>
@@ -19,8 +12,8 @@ const App = () => {
         <textarea style={{ width: '98%', height: '100%' }} value={textAreaValue} onChange={(e) => setTextAreaValue(e.currentTarget.value)} />
       </div>
       <div style={{ width: '50%', height: '80vh' }}>
-        <div style={{ width: '100%', height: '100%', border: '1px solid' }}>
-          <ReactMarkdown remarkPlugins={[gfm]} components={components}>
+        <div style={{ width: '100%', height: '100%', border: '1px solid' }} className="markdown-body">
+          <ReactMarkdown remarkPlugins={[gfm]}>
             {textAreaValue}
           </ReactMarkdown>
         </div>
